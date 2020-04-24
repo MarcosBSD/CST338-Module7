@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="143dp"
+        android:layout_width="178dp"
+        android:layout_height="83dp"
         android:layout_gravity="center_horizontal"
         app:srcCompat="@drawable/images" />
 
@@ -19,24 +19,14 @@
     <ListView
         android:id="@+id/class_list"
         android:layout_width="match_parent"
-        android:layout_height="260dp"></ListView>
+        android:layout_height="330dp"></ListView>
 
-    <ScrollView
-        android:id="@+id/SCROLLER_ID"
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:fillViewport="true"
-        android:scrollbars="vertical">
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="15dp"
-            android:hint="TextView"
-            android:textColor="@color/colorPrimaryDark" />
-    </ScrollView>
-
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:scrollbars="vertical"
+        android:textColor="@color/colorPrimaryDark" />
 </LinearLayout>
