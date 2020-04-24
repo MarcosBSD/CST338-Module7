@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -17,7 +19,9 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity
 {
 
-   TextView textView;
+   TextView tvCourseDesc;
+   Button btnSubmit;
+   EditText etCourseNumber;
 
    @Override
    protected void onCreate(Bundle savedInstanceState)
@@ -26,16 +30,19 @@ public class MainActivity extends AppCompatActivity
       setContentView(R.layout.activity_main);
       Log.d("Life Cycle Event: ", "In onCreate()");
 
-      textView = findViewById(R.id.textView);
-      String[] titleArr = {"300", "311", "325", "334", "336", "338", "363",
+      tvCourseDesc = findViewById(R.id.tvCourseDesc);
+      btnSubmit = findViewById(R.id.btnCourseNumber);
+      etCourseNumber = findViewById(R.id.etCourseNumber);
+
+      final String[] courseNumber = {"300", "311", "325", "334", "336", "338", "363",
             "370", "383"};
-      String[] descArr = {getString(R.string.name300),
+      String[] courseName = {getString(R.string.name300),
             getString(R.string.name311),
             getString(R.string.name325), getString(R.string.name334),
             getString(R.string.name336), getString(R.string.name338),
             getString(R.string.name363), getString(R.string.name370),
             getString(R.string.name383)};
-      final String[] classDescription = {getString(R.string.desc300),
+      final String[] courseDesc = {getString(R.string.desc300),
             getString(R.string.desc311), getString(R.string.desc325),
             getString(R.string.desc334), getString(R.string.desc336),
             getString(R.string.desc338), getString(R.string.desc363),
@@ -43,12 +50,12 @@ public class MainActivity extends AppCompatActivity
 
       ArrayList<Map<String, Object>> itemDataList = new ArrayList<>();
 
-      int titleLen = titleArr.length;
+      int titleLen = courseNumber.length;
       for (int i = 0; i < titleLen; i++)
       {
          Map<String, Object> listItemMap = new HashMap<>();
-         listItemMap.put("title", titleArr[i]);
-         listItemMap.put("description", descArr[i]);
+         listItemMap.put("title", courseNumber[i]);
+         listItemMap.put("description", courseName[i]);
          itemDataList.add(listItemMap);
       }
 
@@ -60,13 +67,38 @@ public class MainActivity extends AppCompatActivity
       ListView listView = (ListView) findViewById(R.id.class_list);
       listView.setAdapter(simpleAdapter);
 
+      btnSubmit.setOnClickListener(new View.OnClickListener()
+      {
+         @Override
+         public void onClick(View view)
+         {
+            String enteredNumber = etCourseNumber.getText().toString();
+            int currentIndex = 0;
+            boolean found = false;
+            for (String element:courseNumber) {
+               if ( element.equals( enteredNumber )) {
+                  found = true;
+                  break;
+               }
+               currentIndex++;
+            }
+            if (found) {
+               tvCourseDesc.setText(courseDesc[currentIndex]);
+            }
+            else {
+               tvCourseDesc.setText("Invalid Course Number");
+            }
+
+         }
+      });
+
       listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
       {
          @Override
          public void onItemClick(AdapterView<?> adapterView, View view,
                                  int position, long id)
          {
-            textView.setText(classDescription[position]);
+            tvCourseDesc.setText(courseDesc[position]);
          }
       });
    }
